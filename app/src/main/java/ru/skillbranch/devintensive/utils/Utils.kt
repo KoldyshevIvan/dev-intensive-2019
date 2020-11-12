@@ -5,7 +5,7 @@ object Utils {
         val parts : List<String>? = fullName?.split(" ")
         val firstName = if (fullName.isNullOrBlank()) null else parts?.getOrNull(0)
         val lastName = if (fullName.isNullOrBlank()) null else parts?.getOrNull(1)
-        return Pair(if(firstName.isNullOrBlank()) null else firstName, if(lastName.isNullOrBlank()) null else lastName)
+        return firstName to lastName
     }
 
     fun transliteration(payload: String, divider:String = " ") : String {
