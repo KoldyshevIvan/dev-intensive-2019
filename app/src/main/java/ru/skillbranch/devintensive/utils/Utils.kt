@@ -12,7 +12,7 @@ object Utils {
         TODO()
     }
 
-    fun toInitials(firstName: String?, lastName: String?): String? {
-        TODO()
+    fun toInitials(firstName: String, lastName: String?): String? {
+TODO()
     }
 }
