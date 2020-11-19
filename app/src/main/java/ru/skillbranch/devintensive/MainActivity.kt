@@ -14,7 +14,7 @@ import ru.skillbranch.devintensive.models.Bender
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
     lateinit var benderImage: ImageView
-    lateinit var textTxt: TextView
+    lateinit var textTv: TextView
     lateinit var messageEt: EditText
     lateinit var sendBtn: ImageView
     lateinit var benderObj: Bender
@@ -24,19 +24,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         setContentView(R.layout.activity_main)
 
         benderImage = findViewById(R.id.iv_bender)
-        textTxt = findViewById(R.id.tv_text)
+        textTv = findViewById(R.id.tv_text)
         messageEt = findViewById(R.id.et_message)
         sendBtn = findViewById(R.id.iv_send)
 
+        // Восстанавливаем состояние из Bundle, либо присваиваем значения по умолчанию, если savedInstanceState равен null
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
         val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.NAME.name
+
         benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question))
 
         Log.d("M_MainActivity", "onCreate $status $question")
 
-        //val (r, g, b) = benderObj.status.color
+        val (r,g,b) = benderObj.status.color
+        benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
 
-        textTxt.text = benderObj.askQuestion()
+        textTv.text = benderObj.askQuestion()
         sendBtn.setOnClickListener(this)
 
     }
@@ -84,7 +87,7 @@ Log.d("M_MainActivity", "onRestart")
             messageEt.setText("")
             val (r, g, b) = color
             benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
-            textTxt.text = phrase
+            textTv.text = phrase
         }
     }
 }
