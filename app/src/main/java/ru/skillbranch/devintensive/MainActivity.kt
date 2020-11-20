@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import ru.skillbranch.devintensive.models.Bender
 
-class MainActivity : AppCompatActivity(), View.OnClickListener{
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var benderImage: ImageView
     lateinit var textTv: TextView
     lateinit var messageEt: EditText
@@ -36,16 +36,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         Log.d("M_MainActivity", "onCreate $status $question")
 
-        val (r,g,b) = benderObj.status.color
-        benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
+        val (r, g, b) = benderObj.status.color
+        benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
 
         textTv.text = benderObj.askQuestion()
         sendBtn.setOnClickListener(this)
 
     }
-    override fun onRestart(){
+
+    override fun onRestart() {
         super.onRestart()
-Log.d("M_MainActivity", "onRestart")
+        Log.d("M_MainActivity", "onRestart")
     }
 
     override fun onStart() {
@@ -65,12 +66,12 @@ Log.d("M_MainActivity", "onRestart")
 
     override fun onStop() {
         super.onStop()
-    Log.d("M_MainActivity", "onStop")
+        Log.d("M_MainActivity", "onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-    Log.d("M_MainActivity", "onDestroy")
+        Log.d("M_MainActivity", "onDestroy")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -78,15 +79,18 @@ Log.d("M_MainActivity", "onRestart")
 
         outState?.putString("STATUS", benderObj.status.name)
         outState?.putString("QUESTION", benderObj.question.name)
-        Log.d("M_MainActivity", "onSaveInstanceState ${benderObj.status.name} ${benderObj.question.name}")
+        Log.d(
+            "M_MainActivity",
+            "onSaveInstanceState ${benderObj.status.name} ${benderObj.question.name}"
+        )
     }
 
-    override fun onClick (v: View?){
-        if(v?.id == R.id.iv_send){
+    override fun onClick(v: View?) {
+        if (v?.id == R.id.iv_send) {
             val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
             messageEt.setText("")
             val (r, g, b) = color
-            benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
+            benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
             textTv.text = phrase
         }
     }
